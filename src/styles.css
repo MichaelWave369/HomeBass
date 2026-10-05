@@ -2032,3 +2032,498 @@ h1 span {
     flex-direction: column;
   }
 }
+
+
+/* Tape Deck --------------------------------------------------------------- */
+
+.room-modal.room-tape {
+  width: min(1080px, 100%);
+}
+
+.tape-deck-experience {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, .7fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.stereo-stack {
+  overflow: hidden;
+  border: 5px solid #121014;
+  background: #3a3735;
+  box-shadow:
+    inset 0 0 0 4px #58534f,
+    10px 12px 0 rgba(0,0,0,.28);
+}
+
+.stereo-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 16px;
+  border-bottom: 4px solid #151217;
+  background: #252223;
+  font-family: "Courier New", monospace;
+}
+
+.stereo-top div {
+  display: grid;
+  gap: 4px;
+}
+
+.stereo-top span {
+  color: #d9b16e;
+  font-size: .68rem;
+  font-weight: 900;
+  letter-spacing: .12em;
+}
+
+.stereo-top strong {
+  color: #817a77;
+  font-size: .58rem;
+  letter-spacing: .05em;
+}
+
+.stereo-top b {
+  padding: 4px 6px;
+  border: 2px solid #161317;
+  background: #0f1711;
+  color: #81d893;
+  font-size: .58rem;
+  letter-spacing: .08em;
+}
+
+.cassette-bay {
+  display: grid;
+  place-items: center;
+  min-height: 290px;
+  padding: 30px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.018) 0 2px,
+      transparent 2px 28px
+    ),
+    #2e2b2b;
+}
+
+.cassette {
+  position: relative;
+  width: min(430px, 92%);
+  aspect-ratio: 1.72;
+  padding: 18px;
+  border: 6px solid #121014;
+  border-radius: 7px;
+  background:
+    linear-gradient(165deg, rgba(255,255,255,.1), transparent 35%),
+    #c2b79c;
+  box-shadow:
+    inset 0 -18px rgba(0,0,0,.09),
+    8px 10px 0 rgba(0,0,0,.24);
+  color: #1c1718;
+}
+
+.cassette::before,
+.cassette::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  width: 42px;
+  height: 24px;
+  background: #978d77;
+}
+
+.cassette::before {
+  left: 24%;
+  transform: skewX(24deg);
+}
+
+.cassette::after {
+  right: 24%;
+  transform: skewX(-24deg);
+}
+
+.cassette.recording {
+  box-shadow:
+    inset 0 -18px rgba(0,0,0,.09),
+    0 0 0 3px #bd5757,
+    0 0 24px rgba(189,87,87,.3),
+    8px 10px 0 rgba(0,0,0,.24);
+}
+
+.cassette-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 48px;
+  padding: 8px 10px;
+  border: 3px solid #251f20;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0 12px,
+      rgba(77,72,63,.14) 12px 13px
+    ),
+    #e6d9b9;
+  font-family: "Courier New", monospace;
+}
+
+.cassette-label span {
+  overflow: hidden;
+  font-size: .72rem;
+  font-weight: 900;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cassette-label strong {
+  font-size: .64rem;
+}
+
+.cassette-window {
+  position: relative;
+  display: grid;
+  grid-template-columns: 64px 1fr 64px;
+  align-items: center;
+  gap: 12px;
+  width: 76%;
+  margin: 28px auto 0;
+  padding: 12px;
+  border: 4px solid #262124;
+  background: #6c6457;
+}
+
+.reel {
+  display: block;
+  width: 52px;
+  height: 52px;
+  border: 8px dotted #ded3b9;
+  border-radius: 50%;
+  background: #272225;
+  box-shadow: inset 0 0 0 8px #9e947e;
+}
+
+.playing .reel {
+  animation: cassette-spin .85s steps(8, end) infinite;
+}
+
+.reel-right {
+  animation-direction: reverse !important;
+}
+
+.tape-window {
+  display: grid;
+  place-items: center;
+  min-height: 38px;
+  border: 3px solid #2a2425;
+  background: #1c191a;
+  color: #d7caaa;
+  font: 900 .8rem "Courier New", monospace;
+}
+
+.cassette-screws i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #554e44;
+  box-shadow: inset 1px 1px #282326;
+}
+
+.cassette-screws i:nth-child(1) { left: 10px; top: 10px; }
+.cassette-screws i:nth-child(2) { right: 10px; top: 10px; }
+.cassette-screws i:nth-child(3) { left: 10px; bottom: 10px; }
+.cassette-screws i:nth-child(4) { right: 10px; bottom: 10px; }
+
+@keyframes cassette-spin {
+  to { transform: rotate(360deg); }
+}
+
+.deck-counter {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: 4px solid #161317;
+  border-bottom: 4px solid #161317;
+  background: #171d18;
+  font-family: "Courier New", monospace;
+}
+
+.deck-counter span,
+.deck-counter b {
+  color: #809b83;
+  font-size: .6rem;
+}
+
+.deck-counter strong {
+  overflow: hidden;
+  color: #a5dda9;
+  font-size: .68rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transport-controls {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  padding: 14px;
+  background: #292626;
+}
+
+.transport-controls button {
+  min-height: 46px;
+  cursor: pointer;
+  border: 3px solid #171417;
+  border-bottom-width: 6px;
+  background: #4a4644;
+  color: #ddd2bd;
+  font: 900 .68rem "Courier New", monospace;
+}
+
+.transport-controls button:active,
+.transport-controls button.active {
+  transform: translateY(3px);
+  border-bottom-width: 3px;
+}
+
+.transport-controls button:last-child {
+  color: #dd8686;
+}
+
+.stereo-speakers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 24px clamp(38px, 8vw, 90px);
+  border-top: 4px solid #151217;
+  background: #201e1f;
+}
+
+.speaker-cone {
+  aspect-ratio: 1;
+  max-width: 180px;
+  width: 100%;
+  justify-self: center;
+  border: 12px solid #333034;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #171518 0 19%, #2c292e 20% 37%, #111014 38% 48%, #363239 49% 100%);
+  box-shadow:
+    inset 0 0 0 5px #171519,
+    0 0 0 4px #0f0e11;
+}
+
+.speaker-cone.thump {
+  animation: bass-thump .8s ease-in-out infinite;
+}
+
+.speaker-cone.delay {
+  animation-delay: .13s;
+}
+
+@keyframes bass-thump {
+  0%, 78%, 100% { transform: scale(1); }
+  84% { transform: scale(1.025); }
+  90% { transform: scale(.985); }
+}
+
+.tape-sidecar {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.tape-label-maker,
+.track-list,
+.audio-adapters {
+  border: 3px solid #131116;
+  background: rgba(40,31,29,.86);
+  box-shadow: inset 0 0 0 2px #55443b;
+}
+
+.tape-label-maker {
+  padding: 16px;
+}
+
+.tape-label-maker label {
+  display: block;
+  margin-bottom: 5px;
+  color: #8f796b;
+  font: 700 .56rem "Courier New", monospace;
+}
+
+.tape-label-maker > div:not(.side-selector) {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px;
+}
+
+.tape-label-maker input {
+  min-width: 0;
+  padding: 9px;
+  border: 2px solid #44362f;
+  outline: 0;
+  background: #181313;
+  color: #d7c6ae;
+  font: 700 .66rem "Courier New", monospace;
+}
+
+.tape-label-maker input:focus {
+  border-color: #c6975e;
+}
+
+.tape-label-maker button {
+  cursor: pointer;
+  border: 2px solid #44362f;
+  background: #5a4335;
+  color: #e2d1b7;
+  font: 900 .6rem "Courier New", monospace;
+}
+
+.side-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 9px;
+}
+
+.side-selector button {
+  padding: 8px;
+}
+
+.side-selector button.active {
+  background: #c28d55;
+  color: #1a1414;
+}
+
+.track-list {
+  overflow: hidden;
+}
+
+.track-list-title,
+.audio-adapters > span {
+  font-family: "Courier New", monospace;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.track-list-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 9px 11px;
+  background: #171313;
+  color: #d2a86f;
+  font-size: .57rem;
+}
+
+.track-list button {
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  border-top: 1px solid #4a3932;
+  cursor: pointer;
+  background: transparent;
+  color: #b9a796;
+  text-align: left;
+}
+
+.track-list button.active {
+  background: rgba(199,147,88,.12);
+}
+
+.track-list button > span,
+.track-list button > b {
+  color: #7d6c60;
+  font: 700 .55rem "Courier New", monospace;
+}
+
+.track-list button > div {
+  display: grid;
+  gap: 2px;
+}
+
+.track-list button strong {
+  font-size: .7rem;
+}
+
+.track-list button small {
+  color: #796d66;
+  font-size: .56rem;
+}
+
+.audio-adapters {
+  padding: 14px;
+}
+
+.audio-adapters > span {
+  display: block;
+  margin-bottom: 9px;
+  color: #d3a56b;
+  font-size: .58rem;
+}
+
+.audio-adapters > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid #46362f;
+}
+
+.audio-adapters strong,
+.audio-adapters b {
+  font: 700 .57rem "Courier New", monospace;
+}
+
+.audio-adapters strong {
+  color: #b6a696;
+}
+
+.audio-adapters b {
+  color: #746960;
+}
+
+@media (max-width: 860px) {
+  .tape-deck-experience {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .cassette-bay {
+    min-height: 240px;
+    padding: 20px 10px;
+  }
+
+  .cassette {
+    width: 98%;
+  }
+
+  .cassette-window {
+    grid-template-columns: 48px 1fr 48px;
+    width: 86%;
+  }
+
+  .reel {
+    width: 42px;
+    height: 42px;
+  }
+
+  .transport-controls {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .transport-controls button:last-child {
+    grid-column: span 2;
+  }
+}
