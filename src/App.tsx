@@ -8,6 +8,8 @@ import { LackLusterRoom } from "./world/LackLusterRoom";
 import { NerdsPanel } from "./world/NerdsPanel";
 import { WorldHub } from "./world/WorldHub";
 import { FrontPorch } from "./world/FrontPorch";
+import { HouseActivity } from "./world/HouseActivity";
+import { emitHomeBassEvent } from "./world/houseBus";
 
 type Room = {
   id: string;
@@ -130,6 +132,13 @@ export default function App() {
     setVisited((current) =>
       current.includes(room.id) ? current : [...current, room.id],
     );
+    emitHomeBassEvent({
+      type: "room.entered",
+      source: "HOUSE",
+      summary: `Entered ${room.name}`,
+      detail: room.short,
+      data: { roomId: room.id },
+    });
   }
 
   return (
@@ -207,7 +216,14 @@ export default function App() {
             <button
               type="button"
               className={`nerds-card nerds-card-button ${allVisited ? "unlocked" : ""}`}
-              onClick={() => setNerdsOpen(true)}
+              onClick={() => {
+                emitHomeBassEvent({
+                  type: "nerds.opened",
+                  source: "N.E.R.D.S.",
+                  summary: "Opened the records ledger",
+                });
+                setNerdsOpen(true);
+              }}
             >
               <div>
                 <span>N.E.R.D.S.</span>
@@ -218,6 +234,8 @@ export default function App() {
           </aside>
         </section>
       )}
+
+      <HouseActivity />
 
       <footer className="ticker" aria-label="HomeBass activity">
         <span className="ticker-label">AFTERHOURS</span>
