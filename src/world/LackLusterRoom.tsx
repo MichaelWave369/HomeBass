@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { videoTapes, type VideoGenre, type VideoTape } from "./lackluster";
+import { emitHomeBassEvent } from "./houseBus";
 
 const RENTALS_KEY = "homebass.lackluster.rentals.v1";
 
@@ -51,6 +52,13 @@ export function LackLusterRoom() {
 
     setRentals(next);
     localStorage.setItem(RENTALS_KEY, JSON.stringify(next));
+    emitHomeBassEvent({
+      type: exists ? "video.returned" : "video.rented",
+      source: "LACKLUSTER",
+      summary: `${exists ? "Returned" : "Rented"} ${tape.title}`,
+      detail: `${tape.year} // ${tape.genre}`,
+      data: { tapeId: tape.id, year: tape.year, rented: !exists },
+    });
     setNotice(
       exists
         ? `${tape.title.toUpperCase()} // RETURNED`
