@@ -1612,3 +1612,423 @@ h1 span {
     min-width: 100%;
   }
 }
+
+
+/* AfterHours BBS ---------------------------------------------------------- */
+
+.room-modal.room-bbs {
+  width: min(1120px, 100%);
+}
+
+.afterhours-experience {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(230px, .55fr);
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.bbs-terminal {
+  min-width: 0;
+}
+
+.bbs-bezel {
+  padding: 18px 18px 12px;
+  border: 5px solid #100e12;
+  border-radius: 12px 12px 18px 18px;
+  background: #4b4945;
+  box-shadow:
+    inset 0 0 0 4px #69665f,
+    10px 12px 0 rgba(0,0,0,.28);
+}
+
+.bbs-screen {
+  overflow: hidden;
+  border: 8px solid #171715;
+  border-radius: 10px 10px 18px 18px;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(95,194,130,.06), transparent 52%),
+    #08110b;
+  box-shadow:
+    inset 0 0 40px rgba(0,0,0,.8),
+    inset 0 0 18px rgba(98,213,135,.05);
+  color: #75dc98;
+  font-family: "Courier New", monospace;
+  text-shadow: 0 0 7px rgba(117,220,152,.2);
+}
+
+.bbs-screen::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+}
+
+.bbs-header,
+.bbs-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 13px;
+  background: #0c190f;
+}
+
+.bbs-header {
+  border-bottom: 1px solid #285c38;
+}
+
+.bbs-header div {
+  display: grid;
+  gap: 3px;
+}
+
+.bbs-header strong {
+  color: #a7f4bc;
+  letter-spacing: .07em;
+}
+
+.bbs-header span,
+.bbs-header b,
+.bbs-footer {
+  font-size: .58rem;
+  letter-spacing: .05em;
+}
+
+.bbs-header span {
+  color: #4d9e64;
+}
+
+.bbs-header b {
+  color: #cfb86f;
+}
+
+.bbs-layout {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  min-height: 360px;
+}
+
+.bbs-board-menu {
+  padding: 10px;
+  border-right: 1px solid #285c38;
+  background: #09140c;
+}
+
+.bbs-board-menu button {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  width: 100%;
+  margin-bottom: 7px;
+  padding: 8px 7px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  color: #4d9e64;
+  text-align: left;
+  font: 700 .64rem "Courier New", monospace;
+}
+
+.bbs-board-menu button:hover,
+.bbs-board-menu button.active {
+  border-color: #3d8150;
+  background: #102318;
+  color: #a4efb9;
+}
+
+.bbs-board-menu button span {
+  color: #cfb86f;
+}
+
+.bbs-board-menu button strong {
+  font-size: .61rem;
+}
+
+.bbs-message-pane {
+  min-width: 0;
+  padding: 12px;
+}
+
+.bbs-board-heading {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px dashed #2b5e3b;
+}
+
+.bbs-board-heading span {
+  color: #a7f4bc;
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.bbs-board-heading small {
+  color: #4f8c60;
+  font-size: .56rem;
+  line-height: 1.35;
+}
+
+.bbs-message-list {
+  display: grid;
+  gap: 7px;
+  max-height: 292px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.bbs-message-list article {
+  padding: 8px 9px;
+  border-left: 2px solid #214a2f;
+  background: rgba(26,57,35,.17);
+}
+
+.bbs-message-list article.local {
+  border-left-color: #cfb86f;
+  background: rgba(207,184,111,.055);
+}
+
+.bbs-message-list header {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.bbs-message-list header strong {
+  color: #94e5aa;
+  font-size: .63rem;
+}
+
+.bbs-message-list header span {
+  color: #4e805b;
+  font-size: .53rem;
+}
+
+.bbs-message-list p {
+  margin: 5px 0 0;
+  color: #69bd80;
+  font-size: .66rem;
+  line-height: 1.45;
+}
+
+.door-grid {
+  display: grid;
+  gap: 9px;
+}
+
+.door-grid button {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 10px;
+  padding: 11px 12px;
+  border: 1px solid #2a603b;
+  cursor: pointer;
+  background: #0d1c12;
+  color: #77c98d;
+  text-align: left;
+  font-family: "Courier New", monospace;
+}
+
+.door-grid button:hover {
+  background: #13291a;
+  border-color: #61b879;
+}
+
+.door-grid strong {
+  color: #9ce9b1;
+  font-size: .68rem;
+}
+
+.door-grid span,
+.door-grid b {
+  font-size: .53rem;
+}
+
+.door-grid span {
+  grid-row: 2;
+  color: #4c825b;
+}
+
+.door-grid b {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  color: #cfb86f;
+}
+
+.bbs-composer {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 10px;
+  border-top: 1px solid #285c38;
+  background: #09140c;
+}
+
+.bbs-composer label {
+  display: grid;
+  gap: 3px;
+  color: #447b53;
+  font-size: .5rem;
+}
+
+.bbs-composer input {
+  min-width: 0;
+  width: 100%;
+  padding: 7px 8px;
+  border: 1px solid #2b5e3b;
+  outline: 0;
+  background: #061009;
+  color: #91dfaa;
+  caret-color: #cfb86f;
+  font: 700 .65rem "Courier New", monospace;
+}
+
+.bbs-composer input:focus {
+  border-color: #71d08a;
+  box-shadow: 0 0 0 1px #71d08a;
+}
+
+.bbs-composer button,
+.bbs-footer button {
+  cursor: pointer;
+  border: 1px solid #316b42;
+  background: #102318;
+  color: #82d499;
+  font: 900 .58rem "Courier New", monospace;
+}
+
+.bbs-composer button {
+  align-self: end;
+  padding: 7px 12px;
+}
+
+.bbs-footer {
+  border-top: 1px solid #285c38;
+  color: #447b53;
+}
+
+.bbs-footer button {
+  padding: 5px 8px;
+}
+
+.terminal-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 8px 0;
+}
+
+.terminal-controls span {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #242321;
+  border-radius: 50%;
+  background: #70bf79;
+  box-shadow: 0 0 8px rgba(112,191,121,.35);
+}
+
+.terminal-controls span:nth-child(2) {
+  background: #d4a75d;
+}
+
+.terminal-controls span:nth-child(3) {
+  background: #a05f5f;
+}
+
+.terminal-controls b {
+  margin-left: auto;
+  color: #252421;
+  font: 900 .58rem "Courier New", monospace;
+}
+
+.bbs-sidecar {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.bbs-sidecar > section {
+  padding: 17px;
+  border: 3px solid #111016;
+  background: rgba(17,28,21,.78);
+  box-shadow: inset 0 0 0 2px #24452e;
+}
+
+.bbs-sidecar h3 {
+  margin: 0 0 14px;
+  color: #8ee1a5;
+  font: 900 1.1rem "Courier New", monospace;
+  overflow-wrap: anywhere;
+}
+
+.bbs-sidecar dl {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.bbs-sidecar dl div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #2b4933;
+}
+
+.bbs-sidecar dt,
+.bbs-sidecar dd {
+  margin: 0;
+  font: 700 .57rem "Courier New", monospace;
+}
+
+.bbs-sidecar dt {
+  color: #53765c;
+}
+
+.bbs-sidecar dd {
+  color: #8cb897;
+  text-align: right;
+}
+
+.bbs-note span {
+  color: #d2b66a;
+  font: 900 .6rem "Courier New", monospace;
+}
+
+.bbs-note p {
+  margin: 9px 0 0;
+  color: #77907e;
+  font: .65rem/1.5 "Courier New", monospace;
+}
+
+@media (max-width: 860px) {
+  .afterhours-experience {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .bbs-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bbs-board-menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+    border-right: 0;
+    border-bottom: 1px solid #285c38;
+  }
+
+  .bbs-board-menu button {
+    margin: 0;
+  }
+
+  .bbs-composer {
+    grid-template-columns: 1fr;
+  }
+
+  .bbs-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
