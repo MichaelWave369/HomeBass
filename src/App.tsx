@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { HangoutRoom } from "./world/HangoutRoom";
+import { LastCreditRoom } from "./world/LastCreditRoom";
 
 type Room = {
   id: string;
@@ -235,6 +236,8 @@ export default function App() {
             <p className="panel-subtitle">{enteredRoom.subtitle}</p>
             {enteredRoom.id === "hangout" ? (
               <HangoutRoom />
+            ) : enteredRoom.id === "last-credit" ? (
+              <LastCreditRoom />
             ) : (
               <>
                 <div className="modal-scene">
