@@ -70,7 +70,7 @@ export function WorldHub({
   const avatarStyle = useMemo(
     () => ({
       "--avatar-x": `${position.col * 33.333 + 16.666}%`,
-      "--avatar-y": `${position.row * 50 + 74}%`,
+      "--avatar-y": `${position.row * 50 + 40}%`,
     }) as CSSProperties,
     [position],
   );
