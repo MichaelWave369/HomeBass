@@ -81,6 +81,7 @@ const keys = {
   quizHighScore: "homebass.hot-shots.high-score.v1",
   videoRentals: "homebass.lackluster.rentals.v1",
   arcadeCredits: "homebass.last-credit.credits.v1",
+  arcadeSpent: "homebass.last-credit.spent.v1",
 } as const;
 
 function readArray(key: string): unknown[] {
@@ -111,6 +112,7 @@ export function collectNerdsEvidence(): NerdsEvidence[] {
   const tapeLabel = localStorage.getItem(keys.tapeLabel) ?? "";
   const quizHighScore = readNumber(keys.quizHighScore, 0);
   const arcadeCredits = readNumber(keys.arcadeCredits, 1);
+  const arcadeSpent = readNumber(keys.arcadeSpent, 0);
 
   return [
     {
@@ -155,6 +157,12 @@ export function collectNerdsEvidence(): NerdsEvidence[] {
       value: arcadeCredits,
       source: "localStorage",
     },
+    {
+      key: "arcade.spent",
+      label: "Arcade credits spent",
+      value: arcadeSpent,
+      source: "localStorage",
+    },
   ];
 }
 
@@ -178,7 +186,7 @@ export function isAchievementUnlocked(
     case "be-kind-rewind":
       return Number(byKey.get("video.rentals") ?? 0) > 0;
     case "last-credit":
-      return Number(byKey.get("arcade.credits") ?? 1) < 1;
+      return Number(byKey.get("arcade.spent") ?? 0) > 0;
     default:
       return false;
   }
