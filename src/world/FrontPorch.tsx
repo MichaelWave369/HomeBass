@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { porchNodeFixture } from "./porch";
+import { emitHomeBassEvent } from "./houseBus";
 
 const ENTRY_KEY = "homebass.porch.entries.v1";
 
@@ -26,6 +27,13 @@ export function FrontPorch({ onEnterHouse }: FrontPorchProps) {
     setEntries(next);
     localStorage.setItem(ENTRY_KEY, String(next));
     setNotice("FRONT DOOR // OPEN");
+    emitHomeBassEvent({
+      type: "porch.entered",
+      source: "PORCH",
+      summary: "Entered HomeBass through the front door",
+      detail: `House entry #${next}`,
+      data: { entries: next },
+    });
     onEnterHouse();
   }
 
