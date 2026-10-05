@@ -6,6 +6,7 @@ import {
   type BbsBoardId,
   type BbsMessage,
 } from "./bbs";
+import { emitHomeBassEvent } from "./houseBus";
 
 const STORAGE_KEY = "homebass.afterhours.messages.v1";
 const HANDLE_KEY = "homebass.afterhours.handle.v1";
@@ -78,6 +79,13 @@ export function AfterHoursBbsRoom() {
     setStatus("MESSAGE POSTED // LOCAL NODE");
     localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
     localStorage.setItem(HANDLE_KEY, cleanHandle);
+    emitHomeBassEvent({
+      type: "bbs.message.posted",
+      source: "AFTERHOURS",
+      summary: `@${cleanHandle} posted to ${activeBoard.label}`,
+      detail: cleanBody.slice(0, 72),
+      data: { boardId, handle: cleanHandle },
+    });
   }
 
   function clearLocalMessages() {
