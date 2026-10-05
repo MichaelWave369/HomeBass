@@ -3289,3 +3289,275 @@ h1 span {
     text-align: center;
   }
 }
+
+
+/* N.E.R.D.S. -------------------------------------------------------------- */
+
+.nerds-card-button {
+  width: 100%;
+  cursor: pointer;
+  background: transparent;
+  text-align: left;
+}
+
+.nerds-card-button:hover {
+  border-color: #6e6379;
+  background: rgba(255,255,255,.02);
+}
+
+.nerds-overlay {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgba(5, 4, 8, .82);
+  backdrop-filter: blur(7px);
+}
+
+.nerds-ledger {
+  position: relative;
+  width: min(980px, 100%);
+  max-height: min(820px, 94vh);
+  overflow: auto;
+  padding: clamp(24px, 4vw, 42px);
+  border: 5px solid #0e0b12;
+  background:
+    linear-gradient(rgba(255,255,255,.018), transparent),
+    #18131d;
+  box-shadow:
+    0 0 0 4px #40354b,
+    18px 18px 0 rgba(0,0,0,.35);
+}
+
+.nerds-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.nerds-header h2 {
+  margin: 0;
+  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  line-height: .88;
+}
+
+.nerds-header p:last-child {
+  margin: 10px 0 0;
+  color: #8f8595;
+}
+
+.nerds-score {
+  min-width: 170px;
+  padding: 14px;
+  border: 3px solid #2e2838;
+  background: #100d15;
+  font-family: "Courier New", monospace;
+}
+
+.nerds-score span,
+.nerds-score strong,
+.nerds-score b {
+  display: block;
+}
+
+.nerds-score span {
+  color: #7f7487;
+  font-size: .56rem;
+  letter-spacing: .09em;
+}
+
+.nerds-score strong {
+  margin: 4px 0;
+  color: #e1bc69;
+  font-size: 2.1rem;
+  line-height: 1;
+}
+
+.nerds-score b {
+  color: #71d7b7;
+  font-size: .56rem;
+}
+
+.nerds-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.nerds-grid article {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 12px;
+  min-height: 132px;
+  padding: 14px;
+  border: 3px solid #2b2533;
+  background: #16111a;
+}
+
+.nerds-grid article.locked {
+  opacity: .56;
+  filter: saturate(.45);
+}
+
+.nerds-grid article.unlocked {
+  border-color: #5b715f;
+  box-shadow: inset 0 0 20px rgba(113,215,183,.05);
+}
+
+.nerds-stamp {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  min-height: 92px;
+  border: 3px solid #28222f;
+  background: #0f0c13;
+  text-align: center;
+}
+
+.unlocked .nerds-stamp {
+  border-color: #5f7f68;
+}
+
+.nerds-stamp span {
+  color: #756b7d;
+  font: 900 .46rem "Courier New", monospace;
+  letter-spacing: .06em;
+}
+
+.nerds-stamp strong {
+  color: #8d8196;
+  font-size: 2rem;
+}
+
+.unlocked .nerds-stamp strong {
+  color: #74d8b9;
+}
+
+.nerds-category {
+  color: #8a7e92;
+  font: 900 .5rem "Courier New", monospace;
+  letter-spacing: .08em;
+}
+
+.nerds-grid h3 {
+  margin: 4px 0 6px;
+  color: #e3d7e7;
+  font-size: 1rem;
+}
+
+.nerds-grid p {
+  margin: 0;
+  color: #918697;
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.nerds-grid small {
+  display: block;
+  margin-top: 9px;
+  color: #d7b466;
+  font: 900 .52rem "Courier New", monospace;
+}
+
+.nerds-evidence {
+  margin-top: 20px;
+  border: 3px solid #2b2533;
+  background: #100d14;
+}
+
+.nerds-evidence-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 2px solid #2b2533;
+  font-family: "Courier New", monospace;
+}
+
+.nerds-evidence-title span {
+  color: #73d5b6;
+  font-size: .58rem;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.nerds-evidence-title button {
+  cursor: pointer;
+  border: 1px solid #4b4255;
+  background: #1b1621;
+  color: #9d93a5;
+  font: 900 .52rem "Courier New", monospace;
+}
+
+.nerds-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.nerds-evidence-grid > div {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 10px;
+  padding: 10px 12px;
+  border-right: 1px solid #2a2531;
+  border-top: 1px solid #2a2531;
+  font-family: "Courier New", monospace;
+}
+
+.nerds-evidence-grid > div:nth-child(2n) {
+  border-right: 0;
+}
+
+.nerds-evidence-grid span {
+  color: #746b7b;
+  font-size: .54rem;
+}
+
+.nerds-evidence-grid strong {
+  overflow: hidden;
+  color: #c9bdce;
+  font-size: .58rem;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.nerds-evidence-grid b {
+  grid-column: span 2;
+  color: #514b57;
+  font-size: .48rem;
+}
+
+.nerds-footer {
+  margin-top: 14px;
+  color: #5f5867;
+  font: 700 .52rem "Courier New", monospace;
+  text-align: center;
+  letter-spacing: .06em;
+}
+
+@media (max-width: 720px) {
+  .nerds-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .nerds-score {
+    min-width: 0;
+  }
+
+  .nerds-grid,
+  .nerds-evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nerds-evidence-grid > div,
+  .nerds-evidence-grid > div:nth-child(2n) {
+    border-right: 0;
+  }
+}

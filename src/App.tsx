@@ -5,6 +5,7 @@ import { AfterHoursBbsRoom } from "./world/AfterHoursBbsRoom";
 import { TapeDeckRoom } from "./world/TapeDeckRoom";
 import { HotShotsRoom } from "./world/HotShotsRoom";
 import { LackLusterRoom } from "./world/LackLusterRoom";
+import { NerdsPanel } from "./world/NerdsPanel";
 
 type Room = {
   id: string;
@@ -96,6 +97,7 @@ export default function App() {
   const [selectedId, setSelectedId] = useState(rooms[0].id);
   const [enteredRoom, setEnteredRoom] = useState<Room | null>(null);
   const [visited, setVisited] = useState<string[]>(loadVisited);
+  const [nerdsOpen, setNerdsOpen] = useState(false);
 
   const selected = useMemo(
     () => rooms.find((room) => room.id === selectedId) ?? rooms[0],
@@ -202,13 +204,17 @@ export default function App() {
             Double-click a room in the house or use ENTER ROOM.
           </p>
 
-          <div className={`nerds-card ${allVisited ? "unlocked" : ""}`}>
+          <button
+            type="button"
+            className={`nerds-card nerds-card-button ${allVisited ? "unlocked" : ""}`}
+            onClick={() => setNerdsOpen(true)}
+          >
             <div>
               <span>N.E.R.D.S.</span>
-              <strong>{allVisited ? "FIRST NIGHT UNLOCKED" : "FIRST NIGHT"}</strong>
+              <strong>{allVisited ? "FIRST NIGHT UNLOCKED" : "OPEN RECORDS"}</strong>
             </div>
             <b>{visited.length}/{rooms.length}</b>
-          </div>
+          </button>
         </aside>
       </section>
 
@@ -218,6 +224,8 @@ export default function App() {
           THE HANGOUT IS OPEN · LAST CREDIT ATTRACT MODE RUNNING · TAPE DECK SIDE A READY · NO COVER CHARGE ·
         </div>
       </footer>
+
+      {nerdsOpen && <NerdsPanel onClose={() => setNerdsOpen(false)} />}
 
       {enteredRoom && (
         <div className="modal-backdrop" role="presentation" onMouseDown={() => setEnteredRoom(null)}>
