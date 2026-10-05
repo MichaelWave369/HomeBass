@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { HangoutRoom } from "./world/HangoutRoom";
 
 type Room = {
   id: string;
@@ -232,16 +233,22 @@ export default function App() {
             <p className="panel-kicker">{enteredRoom.short}</p>
             <h2 id="room-modal-title">{enteredRoom.name}</h2>
             <p className="panel-subtitle">{enteredRoom.subtitle}</p>
-            <div className="modal-scene">
-              <span className="modal-sign">{enteredRoom.status}</span>
-              <span className="modal-floor" />
-              <span className="modal-prop prop-one" />
-              <span className="modal-prop prop-two" />
-            </div>
-            <p>{enteredRoom.description}</p>
-            <p className="microcopy">
-              v0.1 room shell. Future modules mount here through shared HomeBass contracts.
-            </p>
+            {enteredRoom.id === "hangout" ? (
+              <HangoutRoom />
+            ) : (
+              <>
+                <div className="modal-scene">
+                  <span className="modal-sign">{enteredRoom.status}</span>
+                  <span className="modal-floor" />
+                  <span className="modal-prop prop-one" />
+                  <span className="modal-prop prop-two" />
+                </div>
+                <p>{enteredRoom.description}</p>
+                <p className="microcopy">
+                  Room shell. Future modules mount here through shared HomeBass contracts.
+                </p>
+              </>
+            )}
           </section>
         </div>
       )}
