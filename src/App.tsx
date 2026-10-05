@@ -4,6 +4,7 @@ import { LastCreditRoom } from "./world/LastCreditRoom";
 import { AfterHoursBbsRoom } from "./world/AfterHoursBbsRoom";
 import { TapeDeckRoom } from "./world/TapeDeckRoom";
 import { HotShotsRoom } from "./world/HotShotsRoom";
+import { LackLusterRoom } from "./world/LackLusterRoom";
 
 type Room = {
   id: string;
@@ -247,6 +248,8 @@ export default function App() {
               <TapeDeckRoom />
             ) : enteredRoom.id === "hot-shots" ? (
               <HotShotsRoom />
+            ) : enteredRoom.id === "lackluster" ? (
+              <LackLusterRoom />
             ) : (
               <>
                 <div className="modal-scene">
