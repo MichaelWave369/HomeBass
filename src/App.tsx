@@ -6,6 +6,7 @@ import { TapeDeckRoom } from "./world/TapeDeckRoom";
 import { HotShotsRoom } from "./world/HotShotsRoom";
 import { LackLusterRoom } from "./world/LackLusterRoom";
 import { NerdsPanel } from "./world/NerdsPanel";
+import { WorldHub } from "./world/WorldHub";
 
 type Room = {
   id: string;
@@ -154,29 +155,16 @@ export default function App() {
             <span className="antenna" />
           </div>
 
-          <div className="house" aria-label="HomeBass rooms">
-            {rooms.map((room) => {
-              const isSelected = room.id === selected.id;
-              const isVisited = visited.includes(room.id);
-
-              return (
-                <button
-                  key={room.id}
-                  className={`room ${room.className} ${isSelected ? "selected" : ""}`}
-                  onClick={() => setSelectedId(room.id)}
-                  onDoubleClick={() => enter(room)}
-                  aria-pressed={isSelected}
-                >
-                  <span className="room-lamp" aria-hidden="true" />
-                  <span className="room-short">{room.short}</span>
-                  <strong>{room.name}</strong>
-                  <span className="room-status">{room.status}</span>
-                  {isVisited && <span className="visited-mark">✓</span>}
-                  <span className="pixel-furniture" aria-hidden="true" />
-                </button>
-              );
-            })}
-          </div>
+          <WorldHub
+            rooms={rooms}
+            selectedId={selected.id}
+            visited={visited}
+            onSelect={setSelectedId}
+            onEnter={(roomId) => {
+              const room = rooms.find((candidate) => candidate.id === roomId);
+              if (room) enter(room);
+            }}
+          />
 
           <div className="foundation">
             <div className="speaker">
@@ -201,7 +189,7 @@ export default function App() {
           </button>
 
           <p className="microcopy">
-            Double-click a room in the house or use ENTER ROOM.
+            Walk with WASD / arrows, press Enter at a room, or click directly.
           </p>
 
           <button
