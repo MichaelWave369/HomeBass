@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { buildHotShotsRound } from "./hotShots";
+import { emitHomeBassEvent } from "./houseBus";
 
 const HIGH_SCORE_KEY = "homebass.hot-shots.high-score.v1";
 
@@ -49,6 +50,13 @@ export function HotShotsRoom() {
     if (selectedAnswer === null) return;
 
     if (questionIndex >= questions.length - 1) {
+      emitHomeBassEvent({
+        type: "quiz.completed",
+        source: "HOT SHOTS",
+        summary: `Finished a Hot Shots round with ${score} points`,
+        detail: `${questions.length} questions`,
+        data: { score, questions: questions.length },
+      });
       setFinished(true);
       return;
     }

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { arcadeCabinets, type ArcadeCabinet } from "./arcade";
+import { emitHomeBassEvent } from "./houseBus";
 
 const CREDIT_KEY = "homebass.last-credit.credits.v1";
 const SPENT_KEY = "homebass.last-credit.spent.v1";
@@ -60,6 +61,13 @@ export function LastCreditRoom() {
       return next;
     });
 
+    emitHomeBassEvent({
+      type: "arcade.launched",
+      source: "LAST CREDIT",
+      summary: `Started ${cabinet.title}`,
+      detail: `${cabinet.source.toUpperCase()} cabinet`,
+      data: { cabinetId: cabinet.id, source: cabinet.source },
+    });
     setNotice(`${cabinet.title.toUpperCase()} // LAUNCH RECEIPT QUEUED`);
   }
 
