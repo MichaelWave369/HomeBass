@@ -1,0 +1,250 @@
+import { useEffect, useMemo, useState } from "react";
+
+type Room = {
+  id: string;
+  name: string;
+  short: string;
+  subtitle: string;
+  description: string;
+  status: string;
+  className: string;
+};
+
+const rooms: Room[] = [
+  {
+    id: "hangout",
+    name: "The Hangout",
+    short: "COMMONS",
+    subtitle: "The heart of HomeBass",
+    description:
+      "The shared room: couches, people, agents, chatter, invitations, and whatever is happening tonight.",
+    status: "OPEN",
+    className: "room-hangout",
+  },
+  {
+    id: "last-credit",
+    name: "Last Credit",
+    short: "ARCADE",
+    subtitle: "One more game",
+    description:
+      "Cabinets, original mini-games, PhiCade titles, scoreboards, tournaments, replays, and agent challengers.",
+    status: "1UP",
+    className: "room-arcade",
+  },
+  {
+    id: "afterhours",
+    name: "AfterHours BBS",
+    short: "BBS",
+    subtitle: "14.4K node connected",
+    description:
+      "Boards, handles, messages, door games, local communities, and Porch-native social traffic through a terminal.",
+    status: "ONLINE",
+    className: "room-bbs",
+  },
+  {
+    id: "tape-deck",
+    name: "Tape Deck",
+    short: "A / B",
+    subtitle: "Make a mixtape",
+    description:
+      "Music, playlists-as-cassettes, JukeBot, PHIAudio, agent DJs, local libraries, and shared listening.",
+    status: "PLAY",
+    className: "room-tape",
+  },
+  {
+    id: "hot-shots",
+    name: "Hot Shots",
+    short: "QUIZ",
+    subtitle: "Prove that useless memory",
+    description:
+      "Retro quizzes, timeline games, audio clues, daily challenges, team nights, and deeply unnecessary arguments about 1987.",
+    status: "READY",
+    className: "room-quiz",
+  },
+  {
+    id: "lackluster",
+    name: "LackLuster",
+    short: "VIDEO",
+    subtitle: "Be kind. Or don't. Rewind.",
+    description:
+      "A pixel video store for movie and TV culture, VHS browsing, trivia, PHIVid, Paracut, and shared watch rooms.",
+    status: "OPEN",
+    className: "room-video",
+  },
+];
+
+const VISITED_KEY = "homebass.visited.v1";
+
+function loadVisited(): string[] {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(VISITED_KEY) ?? "[]");
+    return Array.isArray(parsed)
+      ? parsed.filter((value): value is string => typeof value === "string")
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+export default function App() {
+  const [selectedId, setSelectedId] = useState(rooms[0].id);
+  const [enteredRoom, setEnteredRoom] = useState<Room | null>(null);
+  const [visited, setVisited] = useState<string[]>(loadVisited);
+
+  const selected = useMemo(
+    () => rooms.find((room) => room.id === selectedId) ?? rooms[0],
+    [selectedId],
+  );
+
+  const allVisited = rooms.every((room) => visited.includes(room.id));
+
+  useEffect(() => {
+    localStorage.setItem(VISITED_KEY, JSON.stringify(visited));
+  }, [visited]);
+
+  useEffect(() => {
+    if (!enteredRoom) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setEnteredRoom(null);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [enteredRoom]);
+
+  function enter(room: Room) {
+    setSelectedId(room.id);
+    setEnteredRoom(room);
+    setVisited((current) =>
+      current.includes(room.id) ? current : [...current, room.id],
+    );
+  }
+
+  return (
+    <main className="app-shell">
+      <div className="night-sky" aria-hidden="true" />
+
+      <header className="topbar">
+        <div>
+          <p className="eyebrow">INFINITE PORCH // COMMONS NODE</p>
+          <h1>HOME<span>BASS</span></h1>
+          <p className="tagline">Come hang out.</p>
+        </div>
+
+        <div className="hud" aria-label="HomeBass status">
+          <div><span>NODE</span><strong>LOCAL</strong></div>
+          <div><span>HOUSE</span><strong>OPEN</strong></div>
+          <div><span>VISITED</span><strong>{visited.length}/{rooms.length}</strong></div>
+        </div>
+      </header>
+
+      <section className="world-layout">
+        <div className="house-wrap">
+          <div className="roof" aria-hidden="true">
+            <span className="chimney" />
+            <span className="antenna" />
+          </div>
+
+          <div className="house" aria-label="HomeBass rooms">
+            {rooms.map((room) => {
+              const isSelected = room.id === selected.id;
+              const isVisited = visited.includes(room.id);
+
+              return (
+                <button
+                  key={room.id}
+                  className={`room ${room.className} ${isSelected ? "selected" : ""}`}
+                  onClick={() => setSelectedId(room.id)}
+                  onDoubleClick={() => enter(room)}
+                  aria-pressed={isSelected}
+                >
+                  <span className="room-lamp" aria-hidden="true" />
+                  <span className="room-short">{room.short}</span>
+                  <strong>{room.name}</strong>
+                  <span className="room-status">{room.status}</span>
+                  {isVisited && <span className="visited-mark">✓</span>}
+                  <span className="pixel-furniture" aria-hidden="true" />
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="foundation">
+            <div className="speaker">
+              <span className="woofer woofer-small" />
+              <span className="woofer woofer-large" />
+            </div>
+            <div className="foundation-copy">
+              <span>HOMEBASE SIGNAL</span>
+              <strong>LOW END // HIGH TRUST</strong>
+            </div>
+          </div>
+        </div>
+
+        <aside className="room-panel">
+          <p className="panel-kicker">{selected.short}</p>
+          <h2>{selected.name}</h2>
+          <p className="panel-subtitle">{selected.subtitle}</p>
+          <p>{selected.description}</p>
+
+          <button className="enter-button" onClick={() => enter(selected)}>
+            ENTER ROOM
+          </button>
+
+          <p className="microcopy">
+            Double-click a room in the house or use ENTER ROOM.
+          </p>
+
+          <div className={`nerds-card ${allVisited ? "unlocked" : ""}`}>
+            <div>
+              <span>N.E.R.D.S.</span>
+              <strong>{allVisited ? "FIRST NIGHT UNLOCKED" : "FIRST NIGHT"}</strong>
+            </div>
+            <b>{visited.length}/{rooms.length}</b>
+          </div>
+        </aside>
+      </section>
+
+      <footer className="ticker" aria-label="HomeBass activity">
+        <span className="ticker-label">AFTERHOURS</span>
+        <div className="ticker-track">
+          THE HANGOUT IS OPEN · LAST CREDIT ATTRACT MODE RUNNING · TAPE DECK SIDE A READY · NO COVER CHARGE ·
+        </div>
+      </footer>
+
+      {enteredRoom && (
+        <div className="modal-backdrop" role="presentation" onMouseDown={() => setEnteredRoom(null)}>
+          <section
+            className={`room-modal ${enteredRoom.className}`}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="room-modal-title"
+            onMouseDown={(event) => event.stopPropagation()}
+          >
+            <button
+              className="close-button"
+              onClick={() => setEnteredRoom(null)}
+              aria-label="Close room"
+            >
+              ×
+            </button>
+            <p className="panel-kicker">{enteredRoom.short}</p>
+            <h2 id="room-modal-title">{enteredRoom.name}</h2>
+            <p className="panel-subtitle">{enteredRoom.subtitle}</p>
+            <div className="modal-scene">
+              <span className="modal-sign">{enteredRoom.status}</span>
+              <span className="modal-floor" />
+              <span className="modal-prop prop-one" />
+              <span className="modal-prop prop-two" />
+            </div>
+            <p>{enteredRoom.description}</p>
+            <p className="microcopy">
+              v0.1 room shell. Future modules mount here through shared HomeBass contracts.
+            </p>
+          </section>
+        </div>
+      )}
+    </main>
+  );
+}
