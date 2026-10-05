@@ -69,7 +69,7 @@ export const nerdsAchievements: NerdsAchievement[] = [
     description: "Spend at least one arcade credit.",
     points: 175,
     category: "ARCADE",
-    evidenceKeys: ["arcade.credits"],
+    evidenceKeys: ["arcade.spent"],
   },
 ];
 
