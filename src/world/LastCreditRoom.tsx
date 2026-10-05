@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { arcadeCabinets, type ArcadeCabinet } from "./arcade";
 
 const CREDIT_KEY = "homebass.last-credit.credits.v1";
+const SPENT_KEY = "homebass.last-credit.spent.v1";
 
 function loadCredits() {
   try {
@@ -51,6 +52,11 @@ export function LastCreditRoom() {
     setCredits((current) => {
       const next = Math.max(0, current - 1);
       localStorage.setItem(CREDIT_KEY, String(next));
+      const spent = Number(localStorage.getItem(SPENT_KEY) ?? "0");
+      localStorage.setItem(
+        SPENT_KEY,
+        String(Number.isFinite(spent) ? Math.max(0, spent) + 1 : 1),
+      );
       return next;
     });
 
