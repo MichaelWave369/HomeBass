@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type CSSProperties } from "react";
 
 type HubRoom = {
   id: string;
@@ -71,7 +71,7 @@ export function WorldHub({
     () => ({
       "--avatar-x": `${position.col * 33.333 + 16.666}%`,
       "--avatar-y": `${position.row * 50 + 74}%`,
-    }) as React.CSSProperties,
+    }) as CSSProperties,
     [position],
   );
 
