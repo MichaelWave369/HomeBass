@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { demoTape, type TapeSide } from "./tapeDeck";
+import { emitHomeBassEvent } from "./houseBus";
 
 const MIXTAPE_KEY = "homebass.tape-deck.mixtape-title.v1";
 
@@ -38,6 +39,13 @@ export function TapeDeckRoom() {
     setPlaying(true);
     setRecording(false);
     setStatus(`PLAY // ${track.title.toUpperCase()}`);
+    emitHomeBassEvent({
+      type: "tape.played",
+      source: "TAPE DECK",
+      summary: `Playing ${track.title}`,
+      detail: `${track.artist} // Side ${side}`,
+      data: { trackId: track.id, side },
+    });
   }
 
   function stop() {
@@ -78,6 +86,13 @@ export function TapeDeckRoom() {
     const clean = mixtapeTitle.trim().slice(0, 28) || "UNTITLED MIX";
     setMixtapeTitle(clean);
     localStorage.setItem(MIXTAPE_KEY, clean);
+    emitHomeBassEvent({
+      type: "tape.labeled",
+      source: "TAPE DECK",
+      summary: `Labeled mixtape "${clean}"`,
+      detail: `Side ${side}`,
+      data: { label: clean, side },
+    });
     setStatus("LABEL SAVED // LOCAL");
   }
 
