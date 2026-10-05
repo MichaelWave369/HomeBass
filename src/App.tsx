@@ -7,6 +7,7 @@ import { HotShotsRoom } from "./world/HotShotsRoom";
 import { LackLusterRoom } from "./world/LackLusterRoom";
 import { NerdsPanel } from "./world/NerdsPanel";
 import { WorldHub } from "./world/WorldHub";
+import { FrontPorch } from "./world/FrontPorch";
 
 type Room = {
   id: string;
@@ -99,6 +100,7 @@ export default function App() {
   const [enteredRoom, setEnteredRoom] = useState<Room | null>(null);
   const [visited, setVisited] = useState<string[]>(loadVisited);
   const [nerdsOpen, setNerdsOpen] = useState(false);
+  const [scene, setScene] = useState<"porch" | "house">("porch");
 
   const selected = useMemo(
     () => rooms.find((room) => room.id === selectedId) ?? rooms[0],
@@ -148,63 +150,74 @@ export default function App() {
         </div>
       </header>
 
-      <section className="world-layout">
-        <div className="house-wrap">
-          <div className="roof" aria-hidden="true">
-            <span className="chimney" />
-            <span className="antenna" />
+      {scene === "porch" ? (
+        <FrontPorch onEnterHouse={() => setScene("house")} />
+      ) : (
+        <section className="world-layout">
+          <div className="house-wrap">
+            <div className="roof" aria-hidden="true">
+              <span className="chimney" />
+              <span className="antenna" />
+            </div>
+
+            <WorldHub
+              rooms={rooms}
+              selectedId={selected.id}
+              visited={visited}
+              onSelect={setSelectedId}
+              onEnter={(roomId) => {
+                const room = rooms.find((candidate) => candidate.id === roomId);
+                if (room) enter(room);
+              }}
+            />
+
+            <div className="foundation">
+              <div className="speaker">
+                <span className="woofer woofer-small" />
+                <span className="woofer woofer-large" />
+              </div>
+              <div className="foundation-copy">
+                <span>HOMEBASE SIGNAL</span>
+                <strong>LOW END // HIGH TRUST</strong>
+              </div>
+              <button
+                type="button"
+                className="return-porch-button"
+                onClick={() => setScene("porch")}
+              >
+                FRONT PORCH
+              </button>
+            </div>
           </div>
 
-          <WorldHub
-            rooms={rooms}
-            selectedId={selected.id}
-            visited={visited}
-            onSelect={setSelectedId}
-            onEnter={(roomId) => {
-              const room = rooms.find((candidate) => candidate.id === roomId);
-              if (room) enter(room);
-            }}
-          />
+          <aside className="room-panel">
+            <p className="panel-kicker">{selected.short}</p>
+            <h2>{selected.name}</h2>
+            <p className="panel-subtitle">{selected.subtitle}</p>
+            <p>{selected.description}</p>
 
-          <div className="foundation">
-            <div className="speaker">
-              <span className="woofer woofer-small" />
-              <span className="woofer woofer-large" />
-            </div>
-            <div className="foundation-copy">
-              <span>HOMEBASE SIGNAL</span>
-              <strong>LOW END // HIGH TRUST</strong>
-            </div>
-          </div>
-        </div>
+            <button className="enter-button" onClick={() => enter(selected)}>
+              ENTER ROOM
+            </button>
 
-        <aside className="room-panel">
-          <p className="panel-kicker">{selected.short}</p>
-          <h2>{selected.name}</h2>
-          <p className="panel-subtitle">{selected.subtitle}</p>
-          <p>{selected.description}</p>
+            <p className="microcopy">
+              Walk with WASD / arrows, press Enter at a room, or click directly.
+            </p>
 
-          <button className="enter-button" onClick={() => enter(selected)}>
-            ENTER ROOM
-          </button>
-
-          <p className="microcopy">
-            Walk with WASD / arrows, press Enter at a room, or click directly.
-          </p>
-
-          <button
-            type="button"
-            className={`nerds-card nerds-card-button ${allVisited ? "unlocked" : ""}`}
-            onClick={() => setNerdsOpen(true)}
-          >
-            <div>
-              <span>N.E.R.D.S.</span>
-              <strong>{allVisited ? "FIRST NIGHT UNLOCKED" : "OPEN RECORDS"}</strong>
-            </div>
-            <b>{visited.length}/{rooms.length}</b>
-          </button>
-        </aside>
-      </section>
+            <button
+              type="button"
+              className={`nerds-card nerds-card-button ${allVisited ? "unlocked" : ""}`}
+              onClick={() => setNerdsOpen(true)}
+            >
+              <div>
+                <span>N.E.R.D.S.</span>
+                <strong>{allVisited ? "FIRST NIGHT UNLOCKED" : "OPEN RECORDS"}</strong>
+              </div>
+              <b>{visited.length}/{rooms.length}</b>
+            </button>
+          </aside>
+        </section>
+      )}
 
       <footer className="ticker" aria-label="HomeBass activity">
         <span className="ticker-label">AFTERHOURS</span>
