@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { HangoutRoom } from "./world/HangoutRoom";
 import { LastCreditRoom } from "./world/LastCreditRoom";
+import { AfterHoursBbsRoom } from "./world/AfterHoursBbsRoom";
 
 type Room = {
   id: string;
@@ -238,6 +239,8 @@ export default function App() {
               <HangoutRoom />
             ) : enteredRoom.id === "last-credit" ? (
               <LastCreditRoom />
+            ) : enteredRoom.id === "afterhours" ? (
+              <AfterHoursBbsRoom />
             ) : (
               <>
                 <div className="modal-scene">
